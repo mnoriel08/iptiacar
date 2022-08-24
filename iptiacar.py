@@ -116,10 +116,8 @@ def detectarObstaculo():
 
 def main():  # bucle principal
 	time.sleep(2) # esperar a que arranque
-	juegoTTS = ["iptiacar","lito"]
-	texto_a_voz(juegoTTS)
-	while True:
-		time.sleep(0.1)
+	print("iptiacar esta listo")
+	detectarObstaculo()
 
 #=======================================================================
 # seccion 4 - ventana principal del interfaz grafico de usuario (GUI)
