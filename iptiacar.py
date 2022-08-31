@@ -49,7 +49,7 @@ pistaXYInfDer     = (2.98,0)    # esquina inferior derecha
 
 # parametros del auto-robot
 operador          = ""
-autoVelocidad     = 10          # velocidad del auto-robot
+autoVelocidad     = 30          # velocidad del auto-robot
 autoX             = 0           # coordenada X del auto-robot
 autoY             = 0           # coordenada Y del auto-robot
 autoAngulo        = 0           # angulo de giro del auto-robot
@@ -60,22 +60,30 @@ autoDistancia     = 0           # distancia del auto-robot al obstaculo
 #=======================================================================
 
 # mover auto en varias direcciones y detenerlo
-def moverAuto(operador, autoVelocidad): 
+def moverAuto(): 
 	if operador == 'detener':
 		ix.stop()
 	else:
 		if operador == 'avanzar':
 			ix.set_dir_servo_angle(0)
-			ix.forward(autoVelocidad)
+			while True:
+				ix.forward(autoVelocidad)
+				time.sleep(0.5)
 		elif operador == 'retroceder':
 				ix.set_dir_servo_angle(0)
-				ix.backward(autoVelocidad)
-		elif operador == 'girar_izquierda':
-				ix.set_dir_servo_angle(-30)
-				ix.forward(autoVelocidad)
-		elif operador == 'girar derecha':
-				ix.set_dir_servo_angle(30)
-				ix.forward(autoVelocidad)
+				while True:
+					ix.backward(autoVelocidad)
+					time.sleep(0.5)
+		elif operador == 'izquierda':
+				for angle in range(0,-30,-1):
+					ix.set_dir_servo_angle(-30)
+					ix.forward(autoVelocidad)
+					time.sleep(0.01)
+		elif operador == 'derecha':
+				for angle in range(0,30,1):
+					ix.set_dir_servo_angle(30)
+					ix.forward(autoVelocidad)
+					time.sleep(0.01)
 
 def detectarColorRojo():
     Vilib.camera_start(vflip=False,hflip=False)
@@ -144,7 +152,7 @@ def textAvoz(juegoTTS):
 		print(i)
 		tts_robot.say(i)
 
-def detectar_esquina():
+def detectarEsquina():
 	try:
 		while True:
 			gm_val_list = ix.get_grayscale_data()
@@ -197,8 +205,8 @@ def main():  # bucle principal del algoritmo
 			exit()
 
 	# mover el auto-robot hacia adelante
-	# operador = "avanzar"
-	# moverAuto(operador,autoVelocidad)
+	operador = "avanzar"
+	moverAuto()
 
 #=======================================================================
 # seccion 4 - ventana principal del interfaz grafico de usuario (GUI)
