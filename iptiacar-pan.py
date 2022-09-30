@@ -38,7 +38,7 @@ tiempoMax         = 180         # limite maximo del juego en segundos
 
 # parametros de la pista
 ladoPista         = 300         # lados X/Y en centimetros de la pista
-bordeMin          = 50          # ancho minimo en cms al borde de pista
+bordeMin          = 40          # ancho minimo en cms al borde de pista
 
 # parametros del auto-robot
 velocidad         = 10          # velocidad del auto-robot
@@ -94,7 +94,6 @@ def izquierda90(): # giro de 90 grados a la izquierda
     for angle in range(0,-90):
         ix.set_dir_servo_angle(angle)
         time.sleep(0.01) # suspende ejecucion por 0.01 segs
-        ix.forward(velocidad)
     return
 
 def izquierda00(): # retornar a posicion 0
@@ -102,7 +101,6 @@ def izquierda00(): # retornar a posicion 0
     for angle in range(90,0,-1):
         ix.set_dir_servo_angle(angle)
         time.sleep(0.01)
-        ix.forward(velocidad)
     return  
 
 def derecha90():   # giro de 90 grados a la derecha
@@ -110,7 +108,6 @@ def derecha90():   # giro de 90 grados a la derecha
     for angle in range(0,90):
         ix.set_dir_servo_angle(angle)
         time.sleep(0.01) # suspende ejecucion por 0.01 segs
-        ix.forward(velocidad)
     return
 
 def derecha00(): # retornar a posicion 0
@@ -118,7 +115,6 @@ def derecha00(): # retornar a posicion 0
     for angle in range(-90,0,1):
         ix.set_dir_servo_angle(angle)
         time.sleep(0.01)
-        ix.forward(velocidad)
     return
 
 # esquivar obstaculo por la izquierda
@@ -183,7 +179,7 @@ def circuito():
         distancia = ix.ultrasonic.read() # lee distancia
         distancia = float(distancia)     # alfanum-float
         print("Distancia al borde negro de la pista: "+str(distancia))
-        while distancia > bordeMin: # avanzar hacia el borde
+        while distancia > 25: # avanzar hacia el borde
             distancia = ix.ultrasonic.read() # lee distancia
             distancia = float(distancia)     # alfanum-float
             print("Distancia al borde negro de la pista: "+str(distancia))
